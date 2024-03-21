@@ -49,7 +49,7 @@ const clearTodoInput = () => {
   userInput.value = "";
 };
 
-const deleteTodo = (todoId) => {
+const deleteTodoHandler = (todoId) => {
   let todoIndex = 0;
   for (const todo of todos) {
     if (todo.id === todoId) {
@@ -60,6 +60,7 @@ const deleteTodo = (todoId) => {
   todos.splice(todoIndex, 1);
   const todoList = document.getElementById("todo-list");
   todoList.children[todoIndex].remove();
+  cancelTodoDeletion();
 };
 
 const cancelTodoDeletion = () => {
@@ -67,25 +68,38 @@ const cancelTodoDeletion = () => {
   deleteTodoModal.classList.remove("visible");
 };
 
-const deleteTodoHandler = (todoId) => {
+const startDeleteTodoHandler = (todoId) => {
   deleteTodoModal.classList.add("visible");
   toggleBackdrop();
+  const cancelDeletionBtn = deleteTodoModal.querySelector(".btn--passive");
+  let confirmDeletionBtn = deleteTodoModal.querySelector(".btn--danger");
+
+  confirmDeletionBtn.replaceWith(confirmDeletionBtn.cloneNode(true));
+
+  confirmDeletionBtn = deleteTodoModal.querySelector(".btn--danger");
+
+  cancelDeletionBtn.removeEventListener("click", cancelTodoDeletion);
+
+  cancelDeletionBtn.addEventListener("click", cancelTodoDeletion);
+  confirmDeletionBtn.addEventListener(
+    "click",
+    deleteTodoHandler.bind(null, todoId)
+  );
 };
 
 const renderNewTodoElement = (id, title) => {
   const newToDoElement = document.createElement("li");
-
   newToDoElement.className = "todo-element";
-  newToDoElement.innerHTML += `
-  <div class="todo">
+  newToDoElement.innerHTML += `  
     <h2>${title}</h2>
-    <button class='delete-button'>Delete</button>
-  </div>  
+    <button class='delete-button'>
+      <i class="material-icons ">delete</i>
+    </button>
   `;
 
   const deleteButton = newToDoElement.querySelector(".delete-button");
 
-  deleteButton.addEventListener("click", deleteTodoHandler.bind(null, id));
+  deleteButton.addEventListener("click", startDeleteTodoHandler.bind(null, id));
   const todoList = document.getElementById("todo-list");
   todoList.append(newToDoElement);
 };

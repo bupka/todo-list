@@ -1,3 +1,10 @@
+:root {
+  --navy-blue: #05445e;
+  --blue-grotto: #189ab4;
+  --blue-green: #75e6da;
+  --baby-blue: #d4f1f4;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -8,6 +15,7 @@ html {
 
 body {
   margin: 0;
+  background-color: var(--blue-grotto);
 }
 
 button:focus {
@@ -21,7 +29,7 @@ header {
   justify-content: space-around;
   align-items: center;
   padding: 0 2.5rem;
-  background: #00329e;
+  background: var(--navy-blue);
 }
 
 header h1 {
@@ -131,8 +139,8 @@ input:focus {
 .modal .modal__title {
   margin: 0;
   padding: 1rem;
-  border-bottom: 1px solid #00329e;
-  background: #00329e;
+  border-bottom: 1px solid var(--navy-blue);
+  background: var(--navy-blue);
   color: white;
   border-radius: 10px 10px 0 0;
 }
@@ -147,26 +155,48 @@ input:focus {
   justify-content: flex-end;
 }
 
+main {
+  margin-top: 4rem;
+}
+
 .todo-element {
+  background: var(--baby-blue);
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  height: 4rem;
-  margin: 1rem;
+  grid: 10px;
+  height: auto;
+  padding: 10px;
+  margin: 1rem 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
 }
 
 .todo-element h2 {
+  margin-left: 0;
+  width: fit-content;
   font-size: 1.25rem;
-  margin: 0;
   color: #383838;
-  margin-bottom: 1rem;
 }
 
-.label__checked {
+.delete-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.material-icons {
+  font-family: "Material Icons"; /* Ensure Material Icons font is loaded */
+  font-size: 1.25rem;
+  /* Adjust the size of the icon */
+  vertical-align: middle; /* Align the icon vertically */
   color: red;
-  text-decoration: line-through;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.material-icons:hover {
+  transform: scale(1.5);
 }
 
 #entry-text {
