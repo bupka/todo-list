@@ -8,8 +8,6 @@ const entryTextSection = document.getElementById("entry-text");
 const startDeleteButton = document.getElementById("start-delete");
 const deleteTodoModal = document.getElementById("delete-modal");
 
-console.log(deleteTodoModal);
-
 let todos = [];
 
 const toggleBackdrop = () => {
@@ -61,6 +59,7 @@ const deleteTodoHandler = (todoId) => {
   const todoList = document.getElementById("todo-list");
   todoList.children[todoIndex].remove();
   cancelTodoDeletion();
+  updateUI();
 };
 
 const cancelTodoDeletion = () => {
@@ -93,7 +92,7 @@ const renderNewTodoElement = (id, title) => {
   newToDoElement.innerHTML += `  
     <h2>${title}</h2>
     <button class='delete-button'>
-      <i class="material-icons ">delete</i>
+      <i class="material-icons">delete</i>
     </button>
   `;
 
